@@ -8,7 +8,7 @@ exports.index = (req, res) => {
   let keywords = req.query.keywords;
   let engine = req.query.engine;
   if(keywords){
-    musicApi.searchSong('xiami',{
+    musicApi.searchSong(engine,{
       key: keywords,
       limit:25,
       page:1,
@@ -18,7 +18,8 @@ exports.index = (req, res) => {
       res.render('home', {
         title: 'Home',
         data,
-        engine
+        engine,
+        keywords
       });
     })
   }else{
@@ -31,7 +32,7 @@ res.render('home', {
 };
 exports.getSong= (req, res) => {
   let vendor = req.params.vendor;
-  musicApi.getSong(engine, req.query || {})
+  musicApi.getSong(req.query.engine, req.query || {})
     .then(data => res.redirect(data.url))
     .catch(err => res.send(err))
 };

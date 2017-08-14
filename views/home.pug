@@ -9,11 +9,13 @@ block content
       form(action="/", method="get")
         
 
-        input(type="text", name='keywords')
+        input(type="text", name='keywords',value=keywords)
         input(type='submit', value='Submit')
-        input(type='radio', name='engine', value='qq')
+        - var checked= engine=='qq'
+        input(type='radio', name='engine', value='qq', checked=checked)
         | qq
-        input(type='radio', name='engine', value='xiami' checked='true') 
+        - var checked= engine!='qq'
+        input(type='radio', name='engine', value='xiami',checked=checked) 
         | xiami
       if data 
         ul
@@ -21,8 +23,8 @@ block content
             li
               //a(href='/get/song?id='+d.id, traget='_blank') #{d.artists[0].name} - #{d.name}
               if engine=='xiami'
-                a(href=d.file traget='_blank') #{d.artists[0].name} - #{d.name} - #{d.album.name}
+                a(href=d.file target='_blank') #{d.artists[0].name} - #{d.name} - #{d.album.name}
               else
-                a(href='/get/song/'+engine+'?id='+d.id, traget='_blank') #{d.artists[0].name} - #{d.name}
+                a(href='/get/song?engine='+engine+'&id='+d.id, target='_blank') #{d.artists[0].name} - #{d.name}
           
     
