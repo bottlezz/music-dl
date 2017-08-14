@@ -1,20 +1,28 @@
 extends layout
 
 block content
-  h1 Hackathon Starter
-  p.lead A boilerplate for Node.js web applications.
+  h1 Music Api
   hr
   .row
     .col-sm-12
       h2 Search
       form(action="/", method="get")
+        
+
         input(type="text", name='keywords')
         input(type='submit', value='Submit')
+        input(type='radio', name='engine', value='qq')
+        | qq
+        input(type='radio', name='engine', value='xiami' checked='true') 
+        | xiami
       if data 
         ul
           each d in data.songList
             li
               //a(href='/get/song?id='+d.id, traget='_blank') #{d.artists[0].name} - #{d.name}
-              a(href=d.file traget='_blank') #{d.artists[0].name} - #{d.name} - #{d.album.name}
+              if engine=='xiami'
+                a(href=d.file traget='_blank') #{d.artists[0].name} - #{d.name} - #{d.album.name}
+              else
+                a(href='/get/song/'+engine+'?id='+d.id, traget='_blank') #{d.artists[0].name} - #{d.name}
           
     
